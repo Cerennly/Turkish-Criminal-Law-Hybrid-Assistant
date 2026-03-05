@@ -1,0 +1,17 @@
+# Vercel only needs: index.html, api/, vercel.json (no Python app)
+venv
+.venv
+__pycache__
+*.pyc
+app/
+data/
+vector_store/
+logs/
+*.pdf
+.env
+.env.*
+node_modules/
+query/
+ingest/
+chroma_db/
+*.log

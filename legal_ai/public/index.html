@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCK Hukuk Asistanı | Türk Ceza Hukuku AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --surface-hover: #243044;
+      --border: #2d3a4d;
+      --text: #e6edf3;
+      --text-muted: #8b9cb3;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --success: #22c55e;
+      --warning: #eab308;
+      --error: #ef4444;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .logo {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+      background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tagline {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .input-wrap {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    #question {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    #question::placeholder { color: var(--text-muted); }
+    #question:focus { border-color: var(--accent); }
+    .btn {
+      padding: 0.9rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: #fff;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .result {
+      display: none;
+      margin-top: 1rem;
+    }
+    .result.visible { display: block; }
+    .answer-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .sources-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .sources-list {
+      list-style: none;
+    }
+    .sources-list li {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .sources-list li:last-child { border-bottom: none; }
+    .loading {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+    .loading.visible { display: flex; }
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-msg {
+      display: none;
+      padding: 0.75rem 1rem;
+      background: rgba(239,68,68,0.15);
+      border: 1px solid var(--error);
+      border-radius: var(--radius);
+      color: #fca5a5;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+    .error-msg.visible { display: block; }
+    .hint {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1 class="logo">TCK Hukuk Asistanı</h1>
+      <p class="tagline">Yüklenen belgelere dayalı Türk Ceza Hukuku soru‑cevap (RAG)</p>
+    </header>
+
+    <main class="card">
+      <form id="form" action="#" method="post">
+        <div class="input-wrap">
+          <input
+            type="text"
+            id="question"
+            name="question"
+            placeholder="Örn: TCK 81 nedir? Hapis cezası koşulları nelerdir?"
+            maxlength="2000"
+            required
+            autocomplete="off"
+          />
+          <button type="submit" class="btn" id="submitBtn">Soru Gönder</button>
+        </div>
+      </form>
+      <p class="hint">Cevap yalnızca yüklenen PDF belgelerindeki bilgilere dayanır. Bilgi bulunamazsa “Belgelerde yer almıyor” yanıtı verilir.</p>
+
+      <div class="loading" id="loading" aria-live="polite">
+        <span class="spinner"></span>
+        <span>Cevaplanıyor…</span>
+      </div>
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="result" id="result">
+        <div class="answer-box" id="answerBox"></div>
+        <p class="sources-title">Kaynaklar</p>
+        <ul class="sources-list" id="sourcesList"></ul>
+      </div>
+    </main>
+
+    <footer>
+      Türk Ceza Hukuku AI · Cevap kaynakları belge ve sayfa numarasıyla gösterilir.
+    </footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('form');
+    const questionInput = document.getElementById('question');
+    const submitBtn = document.getElementById('submitBtn');
+    const loading = document.getElementById('loading');
+    const errorMsg = document.getElementById('errorMsg');
+    const result = document.getElementById('result');
+    const answerBox = document.getElementById('answerBox');
+    const sourcesList = document.getElementById('sourcesList');
+
+    function setLoading(on) {
+      loading.classList.toggle('visible', on);
+      submitBtn.disabled = on;
+      if (on) {
+        result.classList.remove('visible');
+        errorMsg.classList.remove('visible');
+      }
+    }
+
+    function showError(message) {
+      errorMsg.textContent = message;
+      errorMsg.classList.add('visible');
+      result.classList.remove('visible');
+    }
+
+    function showResult(data) {
+      errorMsg.classList.remove('visible');
+      answerBox.textContent = data.answer || '—';
+      sourcesList.innerHTML = '';
+      if (data.sources && data.sources.length > 0) {
+        data.sources.forEach(function (s) {
+          const li = document.createElement('li');
+          li.textContent = s.document + ' — Sayfa ' + s.page;
+          sourcesList.appendChild(li);
+        });
+      } else {
+        const li = document.createElement('li');
+        li.textContent = 'Kaynak yok';
+        li.style.color = 'var(--text-muted)';
+        sourcesList.appendChild(li);
+      }
+      result.classList.add('visible');
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const q = questionInput.value.trim();
+      if (!q) return;
+      setLoading(true);
+      try {
+        const base = window.location.origin;
+        const res = await fetch(base + '/api/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: q })
+        });
+        const data = await res.json().catch(function () { return {}; });
+        if (!res.ok) {
+          showError(data.detail || 'Bir hata oluştu. (' + res.status + ')');
+          return;
+        }
+        showResult(data);
+      } catch (err) {
+        showError('Bağlantı hatası. ' + (err.message || ''));
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>
