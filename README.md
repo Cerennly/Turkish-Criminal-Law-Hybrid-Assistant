@@ -154,8 +154,18 @@ Example response:
 ```
 
 ## Configuration
+<img width="404" height="388" alt="222" src="https://github.com/user-attachments/assets/a018e6aa-cb0e-42c3-b8c6-db6ca885e5e2" />
 
 Edit `app/config.py`:
+<img width="451" height="310" alt="1" src="https://github.com/user-attachments/assets/50a3172f-23b4-4a01-84aa-565c49bda56e" />
+
+
+
+<img width="455" height="428" alt="2" src="https://github.com/user-attachments/assets/b3444ae8-1746-493f-80e8-ddd0abcbefbb" />
+
+
+
+
 
 - **Ingestion**: `CHUNK_SIZE`, `CHUNK_OVERLAP`, `EMBEDDING_MODEL`
 - **Retrieval**: `RETRIEVAL_K` (default 4), `SIMILARITY_SCORE_THRESHOLD`
