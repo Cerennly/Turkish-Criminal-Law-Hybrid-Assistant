@@ -1,3 +1,7 @@
+yazarNote: ⚖️ Turkish Criminal Law Hybrid Assistant
+This was the first trial. Within the prompt engineering work, a repo was first read using a cursor, and llm-rag was added. This was done with a small amount of PDFs at first, embedding them to ensure that it gave us sound answers, but we saw hallucinations. In the next step, I decided to combine it with web search using the Tavalp API, in addition to PDFs. Although delayed, it is now operational here. Using the cursor agent with prompt engineering to create an LLM is fundamental, especially in the Turkish language and more specifically, customization focused on criminal law within Turkish law.
+
+Translated with DeepL.com (free version)
 # Legal AI – Turkish Criminal Law (RAG)
 
 Production-oriented local-first Legal AI assistant for Turkish Criminal Law. It ingests PDFs, uses semantic search (FAISS + bge-m3), and answers questions **only** from the provided documents to reduce hallucination.
